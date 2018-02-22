@@ -23,7 +23,13 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+My pipeline consisted of multiple steps.  
+1. Validate size of image, resize if necessary
+2. Convert image to grayscale
+3. Apply Gaussian Blur with kernel size of 7x7
+4. Perform Canny edge detection with low threshold = 120 and high threshold = 180
+5. Extract the region of interest using a 4-sided polygon mask defined by vertices
+6. Detect lane lines using hough transform
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
 
