@@ -1,9 +1,5 @@
 # **Finding Lane Lines on the Road** 
 
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Finding Lane Lines on the Road**
@@ -15,7 +11,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
+[image0]: ./test_images_output/0gray_solidYellowLeft.jpg "Grayscale"
+[image1]: ./test_images_output/2masked_edges_solidYellowLeft.jpg "Masked Edges"
+[image2]: ./test_images_output/3lines_solidYellowLeft.jpg "Extrapolated Hough lines"
+[image3]: ./test_images_output/4output_solidYellowLeft.jpg "Output"
 
 ---
 
@@ -31,23 +30,33 @@ My pipeline consisted of multiple steps.
 5. Extract the region of interest using a 4-sided polygon mask defined by vertices
 6. Detect lane lines using hough transform
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+In order to draw a single line on the left and right lanes, I extrapolated the detected Hough lines by using 'polyfit' to fit a line.
+I then used 'poly1d' to compute y values corresponding to min and max x values (obtained from vertices that define the polygon region of interest). These x and y values provided the bounds between which lines have to be drawn. An additional validation step is to ensure that the computed y values are within the region of interest (defined by vertices).
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
+Sample images that represent the pipeline: 
 
-![alt text][image1]
+1.  ![alt text][image0]             2.  ![alt text][image1]
 
+3.  ![alt text][image2]             4.  ![alt text][image3]
 
 ### 2. Identify potential shortcomings with your current pipeline
 
 
-One potential shortcoming would be what would happen when ... 
+Potential shortcomings:
 
-Another shortcoming could be ...
+1. Illumination differences, like driving during low visibility or nght time or very bright/sunny conditions, would reduce acccuracy since the thresholds for Canny edge detection would be invalid
+2. Curved roads would require a different approach since line detection would not produce good results
+3. Bad road conditions would affect the appearance of lane lines
+4. Non-centered driving would require a wider region of interest mask
+5. Vehicles immediately in front of our camera would block majority of the visible lanes 
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+Possible improvements:
 
-Another potential improvement could be to ...
+1. Use location of detected lanes in previous frames to contribute to detection in current frame
+2. Use Machine learning to train an algorithm to recognize various types/shapes/colors of lane lines under different conditions
+3. Interpolate lane line locations to fill in for frames where detection is not possible
+4. Use a linear function to generate thresholds for edge detection that are different for different parts of the image, since the lines closer to the camera would appear brighter than the farther lines.  
+
