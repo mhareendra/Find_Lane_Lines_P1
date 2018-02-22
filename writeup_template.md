@@ -35,9 +35,10 @@ I then used 'poly1d' to compute y values corresponding to min and max x values (
 
 Sample images that represent the pipeline: 
 
-1.  ![alt text][image0]             2.  ![alt text][image1]
-
-3.  ![alt text][image2]             4.  ![alt text][image3]
+1.  ![alt text][image0]             
+2.  ![alt text][image1]
+3.  ![alt text][image2]
+4.  ![alt text][image3]
 
 ### 2. Identify potential shortcomings with your current pipeline
 
